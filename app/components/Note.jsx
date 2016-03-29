@@ -3,4 +3,4 @@ import React from 'react';
 // it is good to remember that the JSX will get transformed into calls going through it.
 // Hence if you remove the import statement, the code will break.
 
-export default () => <h1>Learn Webpack!</h1>
+export default () => <h2>Learn Webpack!</h2>
