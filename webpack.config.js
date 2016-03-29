@@ -15,16 +15,32 @@ const common = {
   entry: {
     app: PATHS.app
   },
+  // http://survivejs.com/webpack_react/webpack_and_react/#configuring-babel-loader-
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint'],
+        include: PATHS.app
+      }
+    ],
     loaders: [
       {
         test: /\.css$/,
-        // NB: loaders evaluated from right to left
+        // NB: loaders evaluated from right to left and bottom to top
         loaders: ['style', 'css'],
+        include: PATHS.app
+      },
+      {
+        test: /\.jsx?$/,
+        loaders: ['babel?cacheDirectory'],
         include: PATHS.app
       }
     ]
