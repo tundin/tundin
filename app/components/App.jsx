@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { actionCreators } from '../actions'
+import User from './User'
 import Note from './Note'
 
-const { checkForToken } = actionCreators
+const { checkForToken, login } = actionCreators
 
 class App extends Component {
   componentDidMount(){
@@ -15,7 +16,13 @@ class App extends Component {
   }
 
   render() {
-    return <Note />
+    const { auth, login } = this.props
+    return (
+      <div>
+        <User isAuthenticated={auth.isAuthenticated} handleLoginClick={login} />
+        <Note />
+      </div>
+    )
   }
 }
 
@@ -24,4 +31,4 @@ function mapStateToProps(state){
   return { auth }
 }
 
-export default connect(mapStateToProps, { checkForToken })(App)
+export default connect(mapStateToProps, { checkForToken, login })(App)

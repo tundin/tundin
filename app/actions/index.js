@@ -1,30 +1,60 @@
+// AUTH
+
+import Auth0 from 'auth0-js'
+
+const auth0 = new Auth0({
+  domain:         'jsm.auth0.com',
+  clientID:       'nmkgcfijx8LiICEIhfUL2Q12UcEIEFHx',
+  callbackURL:    'http://localhost:8080', //This might need to be dynamically set
+  callbackOnLocationHash: true
+})
+
+const LOGIN = 'LOGIN'
 const CHECK_ID_REQUEST = 'CHECK_ID_REQUEST'
 const CHECK_ID_SUCCESS = 'CHECK_ID_SUCCESS'
 const CHECK_ID_FAILURE = 'CHECK_ID_FAILURE'
 
-
-function checkId(){
+function checkIdRequest(){
   return {
-    type: CHECK_ID_REQUEST
+    type: CHECK_ID
   }
 }
 
-function checkIdSuccess(){
+function checkIdSuccess(profile){
   return {
-    type: CHECK_ID_SUCCESS
+    type: CHECK_ID_SUCCESS,
+    profile
   }
 }
 
-function checkIdFailure(){
+function checkIdFailure(err){
   return {
-    type: CHECK_ID_FAILURE
+    type: CHECK_ID_FAILURE,
+    err
+  }
+}
+
+// THUNKS
+
+function login(){
+  return (dispatch) => {
+    auth0.login({ connection: 'twitter' })
+  }
+}
+
+function checkId(token){
+  return (dispatch) => {
+    auth0.getProfile(token, function(err, profile){
+      if (err) return dispatch(checkIdFailure(err))
+      if (profile) return dispatch(checkIdSuccess(profile))
+    })
   }
 }
 
 function checkForToken(){
   return (dispatch) => {
     if (localStorage.getItem('id_token')){
-      dispatch(checkId())
+      dispatch(checkId(localStorage.getItem('id_token')))
     }
   }
 }
@@ -36,6 +66,7 @@ export const actionTypes = {
 }
 
 export const actionCreators = {
+  login,
   checkForToken,
   checkId,
   checkIdSuccess,
