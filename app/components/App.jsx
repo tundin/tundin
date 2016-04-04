@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { actionCreators } from '../actions'
+import { actionCreators } from '../actions/auth'
 import User from './User'
 import Note from './Note'
 
@@ -16,11 +16,12 @@ class App extends Component {
   }
 
   render() {
-    const { auth, login } = this.props
+    const { auth, login, children } = this.props
     return (
       <div>
         <User isAuthenticated={auth.isAuthenticated} handleLoginClick={login} />
         <Note />
+        {children}
       </div>
     )
   }

@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "auth0-js": "^6.8.0",
+    "humps": "^1.0.0",
+    "normalizr": "^2.0.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.1",

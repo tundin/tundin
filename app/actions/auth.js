@@ -5,14 +5,18 @@ import Auth0 from 'auth0-js'
 const auth0 = new Auth0({
   domain:         'jsm.auth0.com',
   clientID:       'nmkgcfijx8LiICEIhfUL2Q12UcEIEFHx',
-  callbackURL:    'http://localhost:8080', //This might need to be dynamically set
+  callbackURL:    'http://localhost:8080', //This needs to be dynamically set
   callbackOnLocationHash: true
 })
+
+// actionTypes
 
 const LOGIN = 'LOGIN'
 const CHECK_ID_REQUEST = 'CHECK_ID_REQUEST'
 const CHECK_ID_SUCCESS = 'CHECK_ID_SUCCESS'
 const CHECK_ID_FAILURE = 'CHECK_ID_FAILURE'
+
+// actionCreators
 
 function checkIdRequest(){
   return {

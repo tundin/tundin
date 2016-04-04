@@ -13,8 +13,10 @@ import createLogger from 'redux-logger'
 
 const loggerMiddleware = createLogger()
 
+import apiMiddleware from './middleware/api'
 import reducers from './reducers'
 import App from './components/App'
+import Channels from './components/Channels'
 
 const rMiddleware = routerMiddleware(browserHistory)
 
@@ -23,7 +25,7 @@ const store = createStore(
     ...reducers,
     routing: routerReducer
   }),
-  applyMiddleware(rMiddleware, thunkMiddleware, loggerMiddleware)
+  applyMiddleware(rMiddleware, thunkMiddleware, apiMiddleware, loggerMiddleware)
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
@@ -46,7 +48,9 @@ function onEnter(nextState, replace) {
 
 ReactDOM.render(<Provider store={store}>
   <Router history={history} createElement={createElement}>
-    <Route path="/" onEnter={onEnter} component={App}></Route>
+    <Route path="/" onEnter={onEnter} component={App}>
+      <Route path="to" component={Channels}></Route>
+    </Route>
   </Router>
 </Provider>,
 document.getElementById('app'))

@@ -1,4 +1,13 @@
-import { actionTypes, test } from '../actions'
+import { actionTypes, test } from '../actions/auth'
+
+function entities(state = {}, action) {
+  if (action.response && action.response.entities) {
+    console.log("normalized api response entities:", action.response.entities);
+    return Object.assign({}, state, action.response.entities) // This will overwrite/entity rather than merge
+  } else {
+    return state
+  }
+}
 
 
 function auth(state = {
@@ -27,5 +36,6 @@ function auth(state = {
 }
 
 export default {
-  auth
+  auth,
+  entities
 }
