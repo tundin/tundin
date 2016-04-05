@@ -39,6 +39,10 @@ const channelSchema = new Schema('channels', {
   idAttribute: 'id'
 })
 
+const postSchema = new Schema('posts', {
+  idAttribute: 'id'
+})
+
 const tagSchema = new Schema('tags', {
   idAttribute: 'id'
 })
@@ -47,8 +51,13 @@ channelSchema.define({
   tags: arrayOf(tagSchema)
 })
 
+postSchema.define({
+  tags: arrayOf(tagSchema)
+})
+
 export const Schemas = {
-  CHANNELS: arrayOf(channelSchema)
+  CHANNELS: arrayOf(channelSchema),
+  POSTS: arrayOf(postSchema)
 }
 
 export const CALL_API = Symbol('Call API')

@@ -5,10 +5,6 @@ import { connect } from 'react-redux'
 import { actionCreators } from '../actions/channels'
 
 class Channels extends Component {
-  static populateStore(store, props) {
-    const { dispatch, getState } = store
-    actionCreators.loadChannels()(dispatch, getState)
-  }
   spinner() {
     return <p>Loading...</p>
   }
@@ -21,9 +17,13 @@ class Channels extends Component {
     )
   }
 
+  componentDidMount(){
+    const { loadChannels } = this.props
+    loadChannels()
+  }
+
   render() {
-    const { channels } = this.props
-    console.log(channels);
+    const { channels, children } = this.props
     return (
       <div>
         <h2>Select a channel...</h2>
@@ -32,6 +32,7 @@ class Channels extends Component {
             channels.map(this.linkToChannel)
             : this.spinner() }
         </ul>
+        {children}
       </div>
     )
   }

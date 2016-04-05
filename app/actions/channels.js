@@ -1,4 +1,5 @@
 import { CALL_API, Schemas } from '../middleware/api'
+
 // CHANNELS
 
 // actionTypes
@@ -25,8 +26,6 @@ function fetchChannels() {
 
 function loadChannels(){
   return (dispatch, getState) => {
-
-    // check timestamps
 
     return dispatch(fetchChannels())
   }

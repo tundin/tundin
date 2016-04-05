@@ -17,6 +17,7 @@ import apiMiddleware from './middleware/api'
 import reducers from './reducers'
 import App from './components/App'
 import Channels from './components/Channels'
+import Channel from './components/Channel'
 
 const rMiddleware = routerMiddleware(browserHistory)
 
@@ -30,13 +31,6 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-function createElement(Component, props) {
-  if (Component.populateStore) {
-    Component.populateStore(store, props);
-  }
-  return <Component {...props} />
-}
-
 function onEnter(nextState, replace) {
   const { location } = nextState
   if (location.hash) {
@@ -47,9 +41,11 @@ function onEnter(nextState, replace) {
 }
 
 ReactDOM.render(<Provider store={store}>
-  <Router history={history} createElement={createElement}>
+  <Router history={history} >
     <Route path="/" onEnter={onEnter} component={App}>
-      <Route path="to" component={Channels}></Route>
+      <Route path="to" component={Channels}>
+        <Route path=":channel" component={Channel} ></Route>
+      </Route>
     </Route>
   </Router>
 </Provider>,
