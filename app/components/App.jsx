@@ -20,7 +20,6 @@ class App extends Component {
     return (
       <div>
         <User isAuthenticated={auth.isAuthenticated} handleLoginClick={login} />
-        <Note />
         {children}
       </div>
     )

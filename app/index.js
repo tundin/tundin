@@ -18,6 +18,7 @@ import reducers from './reducers'
 import App from './components/App'
 import Channels from './components/Channels'
 import Channel from './components/Channel'
+import Post from './components/Post'
 
 const rMiddleware = routerMiddleware(browserHistory)
 
@@ -45,6 +46,7 @@ ReactDOM.render(<Provider store={store}>
     <Route path="/" onEnter={onEnter} component={App}>
       <Route path="to" component={Channels}>
         <Route path=":channel" component={Channel} ></Route>
+        <Route path="/posts/:post" component={Post}></Route>
       </Route>
     </Route>
   </Router>

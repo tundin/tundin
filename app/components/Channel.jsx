@@ -12,7 +12,7 @@ class Channel extends Component {
   linkToPost(post) {
     return (
       <li key={post.id}>
-        <Link to={`/post/${post.id}`}>{post.title}</Link>
+        <Link to={`/posts/${post.id}`}>{post.title}</Link>
       </li>
     )
   }
@@ -22,6 +22,19 @@ class Channel extends Component {
     if (tags) {
       loadPosts(tags)
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("Will receiving props: ", nextProps);
+    const { loadPosts, tags } = this.props
+    const nextTags = nextProps.tags
+    console.log(tags && nextTags.some(tag => tags.indexOf(tag) === -1));
+    if (tags && nextTags.some(tag => tags.indexOf(tag) === -1)){
+      loadPosts(nextTags)
+    } else if (!tags && nextTags) {
+      loadPosts(nextTags)
+    }
+
   }
 
   render() {
