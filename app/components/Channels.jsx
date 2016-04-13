@@ -38,7 +38,7 @@ class Channels extends Component {
   }
 }
 
-function mapStateToProps({ auth, entities, routing }){
+function mapStateToProps({ entities }){
   const { channels } = entities
   let channelsList = []
   if (channels){

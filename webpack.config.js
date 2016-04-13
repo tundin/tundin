@@ -8,7 +8,8 @@ const TARGET = process.env.npm_lifecycle_event
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build'),
+  static: path.join(__dirname, 'static')
 };
 
 process.env.BABEL_ENV = TARGET
@@ -35,9 +36,19 @@ const common = {
     ],
     loaders: [
       {
+        test: /\.(jpg|png)$/,
+        loader: 'url?limit=25000',
+        include: PATHS.static
+      },
+      {
+        test: /\.svg$/,
+        loader: 'babel!svg-react',
+        include: PATHS.static
+      },
+      {
         test: /\.css$/,
         // NB: loaders evaluated from right to left and bottom to top
-        loaders: ['style', 'css'],
+        loader: 'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         include: PATHS.app
       },
       {

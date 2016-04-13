@@ -11,7 +11,6 @@ const auth0 = new Auth0({
 
 // actionTypes
 
-const LOGIN = 'LOGIN'
 const CHECK_ID_REQUEST = 'CHECK_ID_REQUEST'
 const CHECK_ID_SUCCESS = 'CHECK_ID_SUCCESS'
 const CHECK_ID_FAILURE = 'CHECK_ID_FAILURE'
@@ -20,7 +19,7 @@ const CHECK_ID_FAILURE = 'CHECK_ID_FAILURE'
 
 function checkIdRequest(){
   return {
-    type: CHECK_ID
+    type: CHECK_ID_REQUEST
   }
 }
 
@@ -41,13 +40,14 @@ function checkIdFailure(err){
 // THUNKS
 
 function login(){
-  return (dispatch) => {
-    auth0.login({ connection: 'twitter' })
+  return () => {
+    auth0.login({ connection: 'twitter' }) // Not super sure about this
   }
 }
 
 function checkId(token){
   return (dispatch) => {
+    dispatch(checkIdRequest)
     auth0.getProfile(token, function(err, profile){
       if (err) return dispatch(checkIdFailure(err))
       if (profile) return dispatch(checkIdSuccess(profile))

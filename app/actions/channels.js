@@ -25,7 +25,7 @@ function fetchChannels() {
 }
 
 function loadChannels(){
-  return (dispatch, getState) => {
+  return (dispatch) => {
 
     return dispatch(fetchChannels())
   }

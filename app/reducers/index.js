@@ -1,8 +1,8 @@
-import { actionTypes, test } from '../actions/auth'
+import { actionTypes } from '../actions/auth'
 
 function entities(state = {channels: {}, tags: {}, posts: {}}, action) {
   if (action.response && action.response.entities) {
-    console.log("normalized api response entities:", action.response.entities);
+    console.log('normalized api response entities:', action.response.entities);
     return Object.assign({}, state, action.response.entities) // This will overwrite/entity rather than merge
   } else {
     return state

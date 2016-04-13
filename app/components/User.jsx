@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 export default class User extends Component {
   renderLogin(){
@@ -9,11 +8,12 @@ export default class User extends Component {
   }
 
   render(){
-    const { isAuthenticated } = this.props
+    const { isAuthenticated, profile } = this.props
+    console.log('profile:',profile);
     if (!isAuthenticated) {
       return this.renderLogin()
     } else {
-      return <p>hi!</p>
+      return <p>Hello {profile.name}</p>
     }
   }
 }

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { actionCreators } from '../actions/auth'
-import User from './User'
-import Note from './Note'
+import Header from './Header'
+import styles from './app.css'
 
 const { checkForToken, login } = actionCreators
+
 
 class App extends Component {
   componentDidMount(){
@@ -16,10 +17,10 @@ class App extends Component {
   }
 
   render() {
-    const { auth, login, children } = this.props
+    const { children } = this.props
     return (
-      <div>
-        <User isAuthenticated={auth.isAuthenticated} handleLoginClick={login} />
+      <div className={styles.app}>
+        <Header />
         {children}
       </div>
     )

@@ -2,6 +2,37 @@ import qs from 'qs'
 
 import { CALL_API, Schemas } from '../middleware/api'
 
+// POST
+
+// actionTypes
+
+const FETCH_POST_REQUEST = 'FETCH_POST_REQUEST'
+const FETCH_POST_SUCCESS = 'FETCH_POST_SUCCESS'
+const FETCH_POST_FAILURE = 'FETCH_POST_FAILURE'
+
+// actionCreator
+
+function fetchPost(id) {
+  return {
+    [CALL_API]: {
+      types: [
+        FETCH_POST_REQUEST,
+        FETCH_POST_SUCCESS,
+        FETCH_POST_FAILURE
+      ],
+      endpoint: `/posts/${id}`,
+      schema: Schemas.POST
+    }
+  }
+}
+
+
+function loadPost(id){
+  return (dispatch) => {
+
+    return dispatch(fetchPost(id))
+  }
+}
 // POSTS
 
 // actionTypes
@@ -26,13 +57,15 @@ function fetchPosts(tags) {
   }
 }
 
+
 function loadPosts(tags){
-  return (dispatch, getState) => {
+  return (dispatch) => {
 
     return dispatch(fetchPosts(tags))
   }
 }
 
 export const actionCreators = {
+  loadPost,
   loadPosts
 }

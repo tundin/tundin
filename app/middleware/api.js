@@ -57,7 +57,8 @@ postSchema.define({
 
 export const Schemas = {
   CHANNELS: arrayOf(channelSchema),
-  POSTS: arrayOf(postSchema)
+  POSTS: arrayOf(postSchema),
+  POST: postSchema
 }
 
 export const CALL_API = Symbol('Call API')

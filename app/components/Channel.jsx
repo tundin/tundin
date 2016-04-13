@@ -25,7 +25,7 @@ class Channel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("Will receiving props: ", nextProps);
+    console.log('Will receiving props: ', nextProps);
     const { loadPosts, tags } = this.props
     const nextTags = nextProps.tags
     console.log(tags && nextTags.some(tag => tags.indexOf(tag) === -1));
@@ -61,7 +61,7 @@ function mapStateToProps({ entities }, {params}){
       .map(id => entities.posts[id])
       .filter(post => post.tags.some(tag => tags.indexOf(tag) !== -1 ))
   }
-  console.log("posts", posts);
+  console.log('posts', posts);
   return {
     tags,
     posts
