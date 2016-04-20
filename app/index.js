@@ -4,15 +4,13 @@ import querystring from 'querystring'
 
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
-import { reducer as formReducer } from 'redux-form';
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import {reducer as formReducer} from 'redux-form'
 
-const loggerMiddleware = createLogger()
+import thunkMiddleware from 'redux-thunk'
 
 import apiMiddleware from './middleware/api'
 import reducers from './reducers'
@@ -30,8 +28,10 @@ const store = createStore(
     routing: routerReducer,
     form: formReducer
   }),
-  applyMiddleware(rMiddleware, thunkMiddleware, apiMiddleware, loggerMiddleware)
-)
+  compose(
+    applyMiddleware(rMiddleware, thunkMiddleware, apiMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  ))
 
 const history = syncHistoryWithStore(browserHistory, store)
 
